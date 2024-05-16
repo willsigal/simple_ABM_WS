@@ -1,4 +1,73 @@
+#Will Sigal 6a
 
+# Create a rock-paper-scissors game!
+# - Play once and report the result
+# - Play in a loop and record how many wins and losses happen?
+# - Allow choosing how many human players there are, from 0-2?
+# - Organize everything into functions?
+# - Organize everything into classes??
+
+from numpy import random
+
+choices = ['rock', 'paper', 'scissors']
+
+p1 = input('Pick one of rock, paper or scissors: ')
+p2 = random.choice(choices)
+#%%
+def winner (p1, p2):
+    if p1 ==p2:
+        return 'tie'
+    elif(p1 == 'rock' and p2 == 'scissors') or \
+         (p1 == 'paper' and p2 == 'rock') or \
+         (p1 == 'scissors' and p2== 'paper'):
+        return 'p1'
+    else:
+        return 'p2'
+    
+#%% Play a round
+
+def game():
+    p1 = input('Choose rock, paper, or scissors:')
+    p2 = random.choice(choices)
+    print(f'computer chooses {p2}')
+    result = winner(p1, p2)
+    if result == 'tie':
+       print("It's a tie!")
+    elif result == 'p1':
+       print("Player 1 wins!")
+    else:
+       print("Computer wins!")
+    return result
+
+game()
+
+#%% Loop play
+
+def multi_game(num_players, num_loops):
+    results = {'p1_wins': 0, 'p2_wins': 0, 'ties': 0}
+    for i in range(num_loops):
+        result = game()
+        if result == 'p1':
+            results['p1_wins'] += 1
+        elif result == 'p2':
+            results['p2_wins'] += 1
+        else:
+            results['ties'] += 1
+    print(f"Results after {num_loops} rounds: {results}")
+    return results
+
+multi_game(2, 5)
+
+#%% multi player
+def main():
+    num_players = int(input("Enter the number of human players (0, 1, or 2): "))
+    if num_players not in [0, 1, 2]:
+        print("Invalid number of players. Must be 0, 1, or 2.")
+        return
+    num_loops = int(input("Enter the number of rounds to play: "))
+    multi_game(num_players, num_loops)
+    
+main()
 
 
 
